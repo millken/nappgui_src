@@ -67,6 +67,9 @@ uint32_t log_printf(const char_t *format, ...)
     uint32_t time_size = 0;
     uint32_t msg_size = 0;
     uint32_t total_size = 0;
+    #if defined(__RELEASE__)
+        return 0;
+    #endif
 
     {
         Date date;
@@ -140,6 +143,9 @@ void log_file(const char_t *pathname)
 
 const char_t *log_get_file(void)
 {
+     #if defined(__RELEASE__)
+        return NULL;
+    #endif
     if (i_LOG_FILEPATH[0] == '\0')
         return NULL;
     else
