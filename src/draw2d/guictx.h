@@ -5,7 +5,6 @@
  * https://nappgui.com/en/legal/license.html
  *
  * File: guictx.h
- * https://nappgui.com/en/draw2d/guictx.html
  *
  */
 
@@ -128,6 +127,7 @@ _draw2d_api void guictx_append_button_manager_imp(
     FPtr_gctx_set_cptr func_button_set_image,
     FPtr_gctx_set_enum func_button_set_state,
     FPtr_gctx_get_enum func_button_get_state,
+    FPtr_gctx_set_real32 func_button_set_hpadding,
     FPtr_gctx_set_real32 func_button_set_vpadding,
     FPtr_gctx_bounds2 func_button_bounds,
     FPtr_gctx_set_ptr func_attach_button_to_panel,
@@ -149,6 +149,7 @@ _draw2d_api void guictx_append_button_manager_imp(
     func_button_set_image, \
     func_button_set_state, \
     func_button_get_state, \
+    func_button_set_hpadding, \
     func_button_set_vpadding, \
     func_button_bounds, \
     func_attach_button_to_panel, \
@@ -170,6 +171,7 @@ _draw2d_api void guictx_append_button_manager_imp(
         FUNC_CHECK_GCTX_SET_CPTR(func_button_set_image, button_type, image_type), \
         FUNC_CHECK_GCTX_SET_ENUM(func_button_set_state, button_type, gui_state_t), \
         FUNC_CHECK_GCTX_GET_ENUM(func_button_get_state, button_type, gui_state_t), \
+        FUNC_CHECK_GCTX_SET_REAL32(func_button_set_hpadding, button_type), \
         FUNC_CHECK_GCTX_SET_REAL32(func_button_set_vpadding, button_type), \
         FUNC_CHECK_GCTX_BOUNDS2(func_button_bounds, button_type), \
         FUNC_CHECK_GCTX_SET_PTR(func_attach_button_to_panel, button_type, panel_type), \
@@ -191,6 +193,7 @@ _draw2d_api void guictx_append_button_manager_imp(
             (FPtr_gctx_set_cptr)func_button_set_image, \
             (FPtr_gctx_set_enum)func_button_set_state, \
             (FPtr_gctx_get_enum)func_button_get_state, \
+            (FPtr_gctx_set_real32)func_button_set_hpadding, \
             (FPtr_gctx_set_real32)func_button_set_vpadding, \
             (FPtr_gctx_bounds2)func_button_bounds, \
             (FPtr_gctx_set_ptr)func_attach_button_to_panel, \
@@ -206,9 +209,9 @@ _draw2d_api void guictx_append_popup_manager_imp(
     FPtr_gctx_create func_popup_create,
     FPtr_gctx_destroy func_popup_destroy,
     FPtr_gctx_set_listener func_popup_OnSelect,
-    FPtr_gctx_set_elem func_popup_set_elem,
     FPtr_gctx_set_text func_popup_set_tooltip,
     FPtr_gctx_set_cptr func_popup_set_font,
+    FPtr_gctx_set_elem func_popup_set_elem,
     FPtr_gctx_set_uint32 func_popup_list_height,
     FPtr_gctx_set_uint32 func_popup_set_selected,
     FPtr_gctx_get_uint32 func_popup_get_selected,
@@ -225,9 +228,9 @@ _draw2d_api void guictx_append_popup_manager_imp(
     func_popup_create, \
     func_popup_destroy, \
     func_popup_OnSelect, \
-    func_popup_set_elem, \
     func_popup_set_tooltip, \
     func_popup_set_font, \
+    func_popup_set_elem, \
     func_popup_list_height, \
     func_popup_set_selected, \
     func_popup_get_selected, \
@@ -244,9 +247,9 @@ _draw2d_api void guictx_append_popup_manager_imp(
         FUNC_CHECK_GCTX_CREATE(func_popup_create, popup_type), \
         FUNC_CHECK_GCTX_DESTROY(func_popup_destroy, popup_type), \
         FUNC_CHECK_GCTX_SET_LISTENER(func_popup_OnSelect, popup_type), \
-        FUNC_CHECK_GCTX_SET_ELEM(func_popup_set_elem, popup_type), \
         FUNC_CHECK_GCTX_SET_TEXT(func_popup_set_tooltip, popup_type), \
         FUNC_CHECK_GCTX_SET_CPTR(func_popup_set_font, popup_type, font_type), \
+        FUNC_CHECK_GCTX_SET_ELEM(func_popup_set_elem, popup_type), \
         FUNC_CHECK_GCTX_SET_UINT32(func_popup_list_height, popup_type), \
         FUNC_CHECK_GCTX_SET_UINT32(func_popup_set_selected, popup_type), \
         FUNC_CHECK_GCTX_GET_UINT32(func_popup_get_selected, popup_type), \
@@ -263,9 +266,9 @@ _draw2d_api void guictx_append_popup_manager_imp(
             (FPtr_gctx_create)func_popup_create, \
             (FPtr_gctx_destroy)func_popup_destroy, \
             (FPtr_gctx_set_listener)func_popup_OnSelect, \
-            (FPtr_gctx_set_elem)func_popup_set_elem, \
             (FPtr_gctx_set_text)func_popup_set_tooltip, \
             (FPtr_gctx_set_cptr)func_popup_set_font, \
+            (FPtr_gctx_set_elem)func_popup_set_elem, \
             (FPtr_gctx_set_uint32)func_popup_list_height, \
             (FPtr_gctx_set_uint32)func_popup_set_selected, \
             (FPtr_gctx_get_uint32)func_popup_get_selected, \
@@ -400,12 +403,17 @@ _draw2d_api void guictx_append_combo_manager_imp(
     FPtr_gctx_set_cptr func_combo_set_font,
     FPtr_gctx_set_enum func_combo_set_align,
     FPtr_gctx_set_bool func_combo_set_passmode,
+    FPtr_gctx_set_bool func_combo_set_editable,
+    FPtr_gctx_set_bool func_combo_set_autoselect,
+    FPtr_gctx_set2_int32 func_combo_set_select,
     FPtr_gctx_set_uint32 func_combo_set_text_color,
     FPtr_gctx_set_uint32 func_combo_set_bg_color,
     FPtr_gctx_set_elem func_combo_set_elem,
+    FPtr_gctx_set_uint32 func_combo_list_height,
     FPtr_gctx_set_uint32 func_combo_set_selected,
     FPtr_gctx_get_uint32 func_combo_get_selected,
     FPtr_gctx_bounds5 func_combo_bounds,
+    FPtr_gctx_clipboard func_combo_clipboard,
     FPtr_gctx_set_ptr func_attach_combo_to_panel,
     FPtr_gctx_set_ptr func_detach_combo_from_panel,
     FPtr_gctx_set_bool func_combo_set_visible,
@@ -426,12 +434,17 @@ _draw2d_api void guictx_append_combo_manager_imp(
     func_combo_set_font, \
     func_combo_set_align, \
     func_combo_set_passmode, \
+    func_combo_set_editable, \
+    func_combo_set_autoselect, \
+    func_combo_set_select, \
     func_combo_set_text_color, \
     func_combo_set_bg_color, \
     func_combo_set_elem, \
+    func_combo_list_height, \
     func_combo_set_selected, \
     func_combo_get_selected, \
     func_combo_bounds, \
+    func_combo_clipboard, \
     func_attach_combo_to_panel, \
     func_detach_combo_from_panel, \
     func_combo_set_visible, \
@@ -452,12 +465,17 @@ _draw2d_api void guictx_append_combo_manager_imp(
         FUNC_CHECK_GCTX_SET_CPTR(func_combo_set_font, combo_type, font_type), \
         FUNC_CHECK_GCTX_SET_ENUM(func_combo_set_align, combo_type, align_t), \
         FUNC_CHECK_GCTX_SET_BOOL(func_combo_set_passmode, combo_type), \
+        FUNC_CHECK_GCTX_SET_BOOL(func_combo_set_editable, combo_type), \
+        FUNC_CHECK_GCTX_SET_BOOL(func_combo_set_autoselect, combo_type), \
+        FUNC_CHECK_GCTX_SET2_INT32(func_combo_set_select, combo_type), \
         FUNC_CHECK_GCTX_SET_UINT32(func_combo_set_text_color, combo_type), \
         FUNC_CHECK_GCTX_SET_UINT32(func_combo_set_bg_color, combo_type), \
         FUNC_CHECK_GCTX_SET_ELEM(func_combo_set_elem, combo_type), \
+        FUNC_CHECK_GCTX_SET_UINT32(func_combo_list_height, combo_type), \
         FUNC_CHECK_GCTX_SET_UINT32(func_combo_set_selected, combo_type), \
         FUNC_CHECK_GCTX_GET_UINT32(func_combo_get_selected, combo_type), \
         FUNC_CHECK_GCTX_BOUNDS5(func_combo_bounds, combo_type), \
+        FUNC_CHECK_GCTX_CLIPBOARD(func_combo_clipboard, combo_type), \
         FUNC_CHECK_GCTX_SET_PTR(func_attach_combo_to_panel, combo_type, panel_type), \
         FUNC_CHECK_GCTX_SET_PTR(func_detach_combo_from_panel, combo_type, panel_type), \
         FUNC_CHECK_GCTX_SET_BOOL(func_combo_set_visible, combo_type), \
@@ -478,12 +496,17 @@ _draw2d_api void guictx_append_combo_manager_imp(
             (FPtr_gctx_set_cptr)func_combo_set_font, \
             (FPtr_gctx_set_enum)func_combo_set_align, \
             (FPtr_gctx_set_bool)func_combo_set_passmode, \
+            (FPtr_gctx_set_bool)func_combo_set_editable, \
+            (FPtr_gctx_set_bool)func_combo_set_autoselect, \
+            (FPtr_gctx_set2_int32)func_combo_set_select, \
             (FPtr_gctx_set_uint32)func_combo_set_text_color, \
             (FPtr_gctx_set_uint32)func_combo_set_bg_color, \
             (FPtr_gctx_set_elem)func_combo_set_elem, \
+            (FPtr_gctx_set_uint32)func_combo_list_height, \
             (FPtr_gctx_set_uint32)func_combo_set_selected, \
             (FPtr_gctx_get_uint32)func_combo_get_selected, \
             (FPtr_gctx_bounds5)func_combo_bounds, \
+            (FPtr_gctx_clipboard)func_combo_clipboard, \
             (FPtr_gctx_set_ptr)func_attach_combo_to_panel, \
             (FPtr_gctx_set_ptr)func_detach_combo_from_panel, \
             (FPtr_gctx_set_bool)func_combo_set_visible, \
